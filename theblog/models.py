@@ -28,8 +28,8 @@ class Post(models.Model):
     # text=models.CharField(max_length=500)
     snippet=models.CharField(max_length=500, default='click above to read post')
     text=RichTextField()
-    creation_date=models.DateTimeField(default=timezone.now)
-    publish_date=models.DateTimeField(default=timezone.now)
+    creation_date=models.DateTimeField(auto_now_add=True)
+    publish_date=models.DateTimeField(auto_now_add=True)
     likes=models.ManyToManyField(User,related_name='post_likes')
 
     def total_likes(self):
