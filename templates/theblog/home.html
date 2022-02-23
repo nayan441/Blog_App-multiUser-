@@ -1,0 +1,31 @@
+{% extends 'theblog/base.html' %}
+
+{% block title_here %}
+Home
+{% endblock %}
+{% block content %}
+
+
+<div class="container">
+
+    <h2 class="text-center">Posts</h2>
+  </div>
+
+{% for post in object_list  %}
+<div class="container alert-light">
+  <div class="d-flex  bd-highlight">
+
+    
+    <h3><a href="{% url 'article'  post.pk %}">{{post.title}}</a></h3>
+  </div>
+    <!-- <small>{{post.text |  slice:":30" |safe}}</small> -->
+    <small>{{post.snippet| safe}}</small>
+    <p>By {{post.author.first_name}} {{post.author.last_name}} </p>
+</div>
+
+{% endfor  %}
+
+
+
+
+{% endblock %}

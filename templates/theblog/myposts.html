@@ -1,0 +1,27 @@
+{% extends 'theblog/base.html' %}
+
+{% block title_here %}
+My Posts
+{% endblock %}
+{% block content %}
+
+
+<div class="container">
+
+    <h2 class="text-center">My Posts</h2>
+  </div>
+
+{% for post in object_list  %}
+{% if post.author.id == user.id %}
+<div class="container alert-light">
+  <div class="d-flex  bd-highlight">
+<h3><a href="{% url 'article'  post.pk %}">{{post.title}}</a></h3>
+</div>
+
+<small>{{post.snippet| safe}}</small>
+</div>
+
+<br>
+{% endif %}
+{% endfor  %}
+{% endblock %}

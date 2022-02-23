@@ -1,0 +1,36 @@
+{% extends 'theblog/base.html' %}
+
+{% block title_here %}
+Update Post
+{% endblock %}
+
+
+{% block content %}
+{%   if user.is_authenticated %}
+{% if post.author.id == user.id or  1 == user.id %}
+<div class="container">
+
+    <h2 class="text-center"> Delete Post</h2>
+</div>
+<div class="form-group">
+<form action="" method="POST">
+    {%  csrf_token %}
+{{post.title}}
+<button class="btn btn-secondary" >Delete</button>
+
+</form>
+
+</div>
+{% else %}
+<h1> you are not allowed here
+</h1>
+{% endif %}
+{% else %}
+<h1> you are not allowed here
+</h1>
+{% endif %}
+<br>
+
+
+<P><a href="{% url 'home' %}" class="btn btn-secondary"> Back</a></P>
+{% endblock %}
