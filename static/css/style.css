@@ -382,9 +382,6 @@ div.tab button:hover {
     display: block;
 }
 
-.header .navbar-nav .has-submenu.menu-large ul li {
-    background: url(images/menubg.jpg) repeat-y center center #ffffff !important;
-}
 
 .tab-details {
     padding: 0;
@@ -598,7 +595,6 @@ div.tab button:hover {
 
 .footer {
     padding: 4rem 0 4rem;
-    background: url(images/footer.png) repeat-x center bottom #edeff2;
 }
 
 .footer.wb {
