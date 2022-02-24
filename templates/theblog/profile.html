@@ -1,0 +1,37 @@
+{% extends 'theblog/base.html' %}
+
+{% block title_here %}
+About
+{% endblock %}
+
+
+{% block content %}
+{%   if user.is_authenticated %}
+<H2  class="text-center"> Profile Page</H2>
+
+{% for profile in object_list  %}
+
+
+{% if profile.user_id == user.id  %}
+<p>
+
+<h3>  Name:-{{profile.user.first_name}}  {{profile.user.last_name}}</h3>
+<h4> Bio:- {{ profile.bio }}</h4>
+            {%  if profile.linkedin_url %}
+<h4> LinkedIn:-<a href="{{ profile.linkedin_url }}" target="_blank">Click here</a></h4>
+</p>
+
+
+            {%  else %}
+            <h4> LinkedIn:-<a href="">No Connection</a></h4>
+            {%  endif %}
+            
+            
+            {%  endif %}
+            {%  endfor %}
+            {%  else %}
+            <h4> No Profile Available</h4>
+            {%  endif %}
+
+
+{%  endblock %}

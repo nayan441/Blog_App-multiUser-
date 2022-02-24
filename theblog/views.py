@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, render
 # from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import PostForm,CommentForm
-from .models import Post,Comment
+from .models import Post,Comment,Profile
 
 
 def LikeView(request,pk):
@@ -24,7 +24,11 @@ def LikeView(request,pk):
     return HttpResponseRedirect(reverse('article',args=[str(pk)]))
 
 class AboutView(TemplateView):
-    template_name = "theblog/about.html"    
+    template_name = "theblog/about.html"  
+
+class ProfileView(ListView):
+    model=Profile
+    template_name = "theblog/profile.html"    
 
 class HomeView(ListView):
     model=Post
@@ -69,6 +73,7 @@ class UpdatePostView(UpdateView):
     # form_class=PostForm
     template_name='theblog/update_post.html'
     fields=['title','text','snippet','header_image']
+
 class DeletePostView(DeleteView):
     model=Post    
     success_url=reverse_lazy('home')

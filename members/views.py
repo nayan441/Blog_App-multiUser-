@@ -10,7 +10,11 @@ from django.contrib.auth import authenticate,login,logout
 from multiuser import settings
 from django.contrib.auth.views import PasswordChangeView
 # Create your views here.
+from django.contrib.auth.views import LoginView    
 
+class LoginView(LoginView):
+    template_name = 'login.html'
+    success_url=reverse_lazy('home')
 
 class PasswordChangeView(PasswordChangeView):
     form_class=PasswordChangeForm

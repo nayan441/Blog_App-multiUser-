@@ -1,5 +1,6 @@
 
 from django import forms  
+from  theblog.models import Profile  
 from django.contrib.auth.models import User  
 from django.contrib.auth.forms import UserCreationForm  ,UserChangeForm
 from django.core.exceptions import ValidationError  
@@ -15,6 +16,7 @@ class CustomUserCreationForm(UserCreationForm):
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput(attrs={'class':'form-control',}))  
     class Meta:
         model=User
+      
         fields = ['first_name', 'last_name', 'email', 'username','password1','password2']
     def username_clean(self):  
         username = self.cleaned_data['username'].lower()  
@@ -57,8 +59,10 @@ class CustomUserCreationForm(UserCreationForm):
 class CustomUserChangeForm(UserChangeForm): 
     class Meta:
         model=User
-        fields=['first_name', 'last_name', 'email', 'username',]
+    
+        fields=[ 'username','first_name', 'last_name', 'email',]
     username = forms.CharField(label='username', min_length=5, max_length=150, widget=forms.TextInput(attrs={'class':'form-control',}))  
     first_name = forms.CharField(label='First Name', max_length=150,widget=forms.TextInput(attrs={'class':'form-control',}))  
     last_name = forms.CharField(label='Last Name', max_length=150, widget=forms.TextInput(attrs={'class':'form-control',})) 
     email = forms.EmailField(label='email',widget=forms.EmailInput(attrs={'class':'form-control',}))  
+    
