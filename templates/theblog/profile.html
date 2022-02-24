@@ -7,7 +7,7 @@ About
 
 {% block content %}
 {%   if user.is_authenticated %}
-<H2  class="text-center"> Profile Page</H2>
+<H2  class="text-center" style="margin-top: 10px;"> Profile Page</H2>
 
 {% for profile in object_list  %}
 
@@ -29,8 +29,9 @@ About
             
             {%  endif %}
             {%  endfor %}
+            <h4 class="text-center"> No Profile Available</h4>
             {%  else %}
-            <h4> No Profile Available</h4>
+            <h4 class="text-center"> You are not allowed here</h4>
             {%  endif %}
 
 

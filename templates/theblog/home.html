@@ -8,22 +8,37 @@ Home
 
 <div class="container">
 
-    <h2 class="text-center">Posts</h2>
+    <h2 class="text-center" style="margin-top: 10px;">Posts</h2>
   </div>
+<div class="container-fluid">
+  <div class="paginate 1">
+  {% for post in object_list  %}
+  <div class="items">
+  <div class="alert-light card">
+    <div class="card-body">
 
-{% for post in object_list  %}
-<div class="container alert-light">
-  <div class="d-flex  bd-highlight">
-
+      <div class="d-flex  bd-highlight">
+        
+        
+        <h3><a href="{% url 'article'  post.pk %}">{{post.title}}</a></h3>
+      </div>
+      <!-- <small>{{post.text |  slice:":30" |safe}}</small> -->
+      <small>{{post.snippet| safe}}</small>
+      <p>By {{post.author.first_name}} {{post.author.last_name}} </p>
+    </div>
     
-    <h3><a href="{% url 'article'  post.pk %}">{{post.title}}</a></h3>
   </div>
-    <!-- <small>{{post.text |  slice:":30" |safe}}</small> -->
-    <small>{{post.snippet| safe}}</small>
-    <p>By {{post.author.first_name}} {{post.author.last_name}} </p>
 </div>
-
-{% endfor  %}
+    {% endfor  %}
+    <div class="pager">
+      <div class="firstPage">&laquo;</div>
+      <div class="previousPage">&lsaquo;</div>
+      <div class="pageNumbers"></div>
+      <div class="nextPage">&rsaquo;</div>
+      <div class="lastPage">&raquo;</div>
+    </div>
+    </div>
+</div>
 
 
 

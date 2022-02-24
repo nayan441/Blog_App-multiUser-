@@ -9,12 +9,15 @@
     <div class="container"    >
 
     
-    <h2 class="text-center">Posts Detail Page-</h2>
+    <h2 class="text-center" style="margin-top: 10px;">Posts Detail Page</h2>
   </div>
  
   
   {% if post.header_image %}
-  <img src="{{post.header_image.url}}" alt=" Image cannot be Displayed">
+ <div  class="text-center" style="margin-top: 10px;">
+
+   <img class="img-fluid" alt="Responsive image"  src="{{post.header_image.url}}" alt=" Image cannot be Displayed">
+  </div>
     <!-- <h3>{{post.header_image.url | safe}}</h3> -->
   {% endif %}
   <div class="container alert-light">
