@@ -8,20 +8,36 @@ My Posts
 
 <div class="container">
 
-    <h2 class="text-center" style="margin-top: 10px;">My Posts</h2>
+    <h2 class="text-center">My Posts</h2>
   </div>
+  <div class="container-fluid">
+    <div class="paginate 1">
+      {% for post in object_list  %}
+      {% if post.author.id == user.id %}
+      <div class="items">
+        <div class="container alert-light card">
+          <div class="card-body">
+            <div class="d-flex  bd-highlight">
+              <h3><a href="{% url 'article'  post.pk %}">{{post.title}}</a></h3>
+            </div>
 
-{% for post in object_list  %}
-{% if post.author.id == user.id %}
-<div class="container alert-light">
-  <div class="d-flex  bd-highlight">
-<h3><a href="{% url 'article'  post.pk %}">{{post.title}}</a></h3>
-</div>
-
-<small>{{post.snippet| safe}}</small>
-</div>
+            <small>{{post.snippet| safe}}</small>
+          </div>
+        </div>
+      </div>
+    
+  
 
 <br>
 {% endif %}
 {% endfor  %}
+<div class="pager">
+  <div class="firstPage">&laquo;</div>
+  <div class="previousPage">&lsaquo;</div>
+  <div class="pageNumbers"></div>
+  <div class="nextPage">&rsaquo;</div>
+  <div class="lastPage">&raquo;</div>
+</div>
+</div>
+</div>
 {% endblock %}
