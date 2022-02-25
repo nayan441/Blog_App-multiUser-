@@ -6,7 +6,7 @@ from django.urls import reverse_lazy, reverse
 # from django.http import HttpResponseRedirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-# from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import PostForm,CommentForm
 from .models import Post,Comment,Profile
@@ -26,7 +26,9 @@ def LikeView(request,pk):
 class AboutView(TemplateView):
     template_name = "theblog/about.html"  
 
-class ProfileView(ListView):
+class ProfileView(LoginRequiredMixin ,ListView):
+    login_url = 'members/login/'
+    redirect_field_name = 'about'
     model=Profile
     template_name = "theblog/profile.html"    
 
@@ -36,7 +38,9 @@ class HomeView(ListView):
     ordering=['-id']
     # paginate_by = 3
 
-class MyPostsView(ListView):
+class MyPostsView(LoginRequiredMixin,ListView):
+    login_url = '/members/login/'
+    redirect_field_name = 'about'
     model=Post
     template_name='theblog/myposts.html'
     ordering=['-id']
@@ -63,23 +67,31 @@ class ArticleDetailView(DetailView):
         context['liked']=liked
         return context
 
-class AddPostView(CreateView):
+class AddPostView(LoginRequiredMixin,CreateView):
+    login_url = '/members/login/'
+    redirect_field_name = 'about'
     model=Post     #optional
     form_class=PostForm
     template_name='theblog/add_post.html'
     # fields='__all__'
-class UpdatePostView(UpdateView):
+class UpdatePostView(LoginRequiredMixin,UpdateView):
+    login_url = '/members/login/'
+    redirect_field_name = 'about'
     model=Post     #optional
     # form_class=PostForm
     template_name='theblog/update_post.html'
     fields=['title','text','snippet','header_image']
 
-class DeletePostView(DeleteView):
+class DeletePostView(LoginRequiredMixin,DeleteView):
+    login_url = '/members/login/'
+    redirect_field_name = 'about'
     model=Post    
     success_url=reverse_lazy('home')
     # form_class=PostForm
     template_name='theblog/delete_post.html'
-class AddCommentView(CreateView):
+class AddCommentView(LoginRequiredMixin,CreateView):
+    login_url = '/members/login/'
+    redirect_field_name = 'about'
     model=Comment
     
     form_class=CommentForm
@@ -95,6 +107,9 @@ class AddCommentView(CreateView):
             context['article_id'] = self.kwargs['pk']   # <<<---
             return context
 
+    
+  
+    
     
   
     
