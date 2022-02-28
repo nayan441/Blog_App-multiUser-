@@ -40,8 +40,8 @@ class Post(models.Model):
     
     def __str__(self):
         return f'Title--{self.title} >> by Username--  {self.author}'
-    def get_absolute_url(self):
-        return reverse('home')
+    # def get_absolute_url(self):
+    #     return reverse('home')
     # def get_absolute_url(self):
     #     return reverse('article',args=(str(self.id)))
 class Comment(models.Model):

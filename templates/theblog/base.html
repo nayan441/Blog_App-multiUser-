@@ -31,9 +31,7 @@
   <meta name="author" content="">
 
   <!-- Site Icons -->
-  <link rel="shortcut icon" href="{%  static 'images/favicon.ico' %}" type="image/x-icon" />
 
-  <link rel="apple-touch-icon" href="{%  static 'images/apple-touch-icon.png' %}">
 
   <!-- Design fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
@@ -200,6 +198,14 @@
 
   </nav>
 
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+  
+      <li{% if message.tags %}  class="alert alert-success" role="alert"   type="none" {% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
   <!-- ------------------------------------------------------------------------------------------------------------------------- -->
   {% block content %}
 

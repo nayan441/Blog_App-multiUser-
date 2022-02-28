@@ -1,6 +1,6 @@
 
 
-
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView,TemplateView
 from django.urls import reverse_lazy, reverse
 # from django.http import HttpResponseRedirect
@@ -29,7 +29,7 @@ class AboutView(TemplateView):
 
 class ProfileView(LoginRequiredMixin ,ListView):
     login_url = 'members/login/'
-    redirect_field_name = 'about'
+    redirect_field_name ='about'
     model=Profile
     template_name = "theblog/profile.html"    
 
@@ -80,33 +80,42 @@ class ArticleDetailView(DetailView):
         context['articleki_id'] = self.articleki_id_ka_queryset
         return context
 
-class AddPostView(LoginRequiredMixin,CreateView):
+class AddPostView(SuccessMessageMixin,LoginRequiredMixin,CreateView):
     login_url = '/members/login/'
-    redirect_field_name = 'about'
+    redirect_field_name = 'myposts'  # find out how it works?
     model=Post     #optional
+    success_message = "Post added  successfully"
     form_class=PostForm
     template_name='theblog/add_post.html'
-    # fields='__all__'
-class UpdatePostView(LoginRequiredMixin,UpdateView):
+    def get_success_url(self):
+        return reverse('myposts')
+    # # fields='__all__'
+class UpdatePostView(SuccessMessageMixin,LoginRequiredMixin,UpdateView):
     login_url = '/members/login/'
     redirect_field_name = 'about'
     model=Post     #optional
     # form_class=PostForm
+    success_message = "Post updated successfully"
     template_name='theblog/update_post.html'
     fields=['title','text','snippet','header_image']
+    def get_success_url(self):
+        return reverse('myposts')
 
-class DeletePostView(LoginRequiredMixin,DeleteView):
+class DeletePostView(SuccessMessageMixin,LoginRequiredMixin,DeleteView):
     login_url = '/members/login/'
     redirect_field_name = 'about'
+    success_message = "post deleted successfully"
     model=Post    
     success_url=reverse_lazy('home')
     # form_class=PostForm
     template_name='theblog/delete_post.html'
-class AddCommentView(LoginRequiredMixin,CreateView):
+    def get_success_url(self):
+        return reverse('myposts')
+class AddCommentView(SuccessMessageMixin,LoginRequiredMixin,CreateView):
     login_url = '/members/login/'
-    redirect_field_name = 'about'
+    redirect_field_name = 'home'
     model=Comment
-    
+    success_message = "Comment added successfully"
     form_class=CommentForm
     template_name='theblog/add_comment.html'
     # fields='__all__'
