@@ -20,6 +20,9 @@ class Profile(models.Model):
 
     def __str__(self):
         return str(self.user)
+    def get_absolute_url(self):
+        return reverse('home',args=(str(self.id)))
+
 
 class Post(models.Model):
     author=models.ForeignKey(User,on_delete=models.CASCADE)

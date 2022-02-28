@@ -9,26 +9,32 @@
     <div class="container"    >
 
     
-    <h2 class="text-center" style="margin-top: 10px;">Posts Detail Page</h2>
+    <h2 class="text-center" style="margin-top: 10px;">Posts Detail Page-</h2>
+
+    
   </div>
  
   
   {% if post.header_image %}
- <div  class="text-center" style="margin-top: 10px;">
-
-   <img class="img-fluid" alt="Responsive image"  src="{{post.header_image.url}}" alt=" Image cannot be Displayed">
-  </div>
+  <img src="{{post.header_image.url}}" alt=" Image cannot be Displayed">
     <!-- <h3>{{post.header_image.url | safe}}</h3> -->
   {% endif %}
   <div class="container alert-light">
     <div class="d-flex  bd-highlight">
+<!-- here i used articleki_id as get_context_data so why post is also working?? -->
+      <!-- ------------------------------------------------------------------------------ -->
     <h3>{{post.title | safe}}</h3>
+    <!-- <h3>{{articleki_id.title | safe}}</h3> -->
   </div>
     <br>
+    <!-- <small>{{articleki_id.text | safe}}<small> -->
     <small>{{post.text | safe}}<small>
     <br>
     <br>
+    <!-- <p><strong>By {{articleki_id.author.first_name}} On {{articleki_id.publish_date}}</strong></p> -->
     <p><strong>By {{post.author.first_name}} On {{post.publish_date}}</strong></p>
+
+    <!-- --------------------------------------------------------------------------------------- -->
   </div>
     <samp><a href="{% url 'home' %}" class="btn btn-secondary"> Back</a></samp>
     {%   if user.is_authenticated %}

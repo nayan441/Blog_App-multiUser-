@@ -12,8 +12,8 @@ My Posts
   </div>
   <div class="container-fluid">
     <div class="paginate 1">
-      {% for post in object_list  %}
-      {% if post.author.id == user.id %}
+      {% for post in myposts_list  %}
+      
       <div class="items">
         <div class="container alert-light card">
           <div class="card-body">
@@ -29,7 +29,7 @@ My Posts
   
 
 <br>
-{% endif %}
+
 {% endfor  %}
 <div class="pager">
   <div class="firstPage">&laquo;</div>

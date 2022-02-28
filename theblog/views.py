@@ -7,11 +7,12 @@ from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth.decorators import login_required
 from .forms import PostForm,CommentForm
 from .models import Post,Comment,Profile
 
 
+@login_required(redirect_field_name='members/login/')
 def LikeView(request,pk):
     post=get_object_or_404(Post, id=request.POST.get('post_id'))
     liked=False
@@ -34,6 +35,7 @@ class ProfileView(LoginRequiredMixin ,ListView):
 
 class HomeView(ListView):
     model=Post
+    context_object_name = 'home_list'
     template_name='theblog/home.html'
     ordering=['-id']
     # paginate_by = 3
@@ -41,9 +43,16 @@ class HomeView(ListView):
 class MyPostsView(LoginRequiredMixin,ListView):
     login_url = '/members/login/'
     redirect_field_name = 'about'
-    model=Post
+    # model=Post
+    context_object_name = 'myposts_list'
     template_name='theblog/myposts.html'
     ordering=['-id']
+    def get_queryset(self):
+        return Post.objects.filter(author_id=self.request.user)
+    # def get_context_data(self, **kwargs):
+    #     data = super().get_context_data(**kwargs)
+    #     data['myposts'] = 'Post'
+    #     return data
 # class MyPostsView(ListView):
 #     context_object_name = 'myposts_list'
 #     template_name='theblog/myposts.html'
@@ -55,6 +64,9 @@ class ArticleDetailView(DetailView):
     
     model=Post
     template_name='theblog/article_detail.html'
+    def get_queryset(self):
+        self.articleki_id_ka_queryset = get_object_or_404(Post, id=self.kwargs['pk'])
+        return Post.objects.filter(id=self.articleki_id_ka_queryset.id)
     def get_context_data(self,*args, **kwargs):
         context=super(ArticleDetailView,self).get_context_data(*args,**kwargs)
         stuff= get_object_or_404(Post,id=self.kwargs['pk'])
@@ -65,6 +77,7 @@ class ArticleDetailView(DetailView):
          
         context['total_likes']=total_likes
         context['liked']=liked
+        context['articleki_id'] = self.articleki_id_ka_queryset
         return context
 
 class AddPostView(LoginRequiredMixin,CreateView):
@@ -107,9 +120,6 @@ class AddCommentView(LoginRequiredMixin,CreateView):
             context['article_id'] = self.kwargs['pk']   # <<<---
             return context
 
-    
-  
-    
     
   
     
